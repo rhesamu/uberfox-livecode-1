@@ -38,6 +38,30 @@ new Vue({
         alert('Item add error!')
       })
     },
+    searchItem() {
+      let query = []
+      if (this.name !== '') query.push(`name=${this.name}`)
+      if (this.price !== '') query.push(`price=${this.price}`)
+      if (this.tags !== '') query.push(`tags=${this.tags}`)
+
+      if (query.length > 0) {
+        var queryStr = query.join('&')
+        console.log(`query -->`, queryStr)
+      } else {
+        var queryStr = ''
+      }
+      axios({
+        method: 'get',
+        url: `${BASE_URL}?${queryStr}`
+      })
+      .then(response => {
+        console.log('search results ->',response.data)
+        this.items = response.data
+      })
+      .catch(err => {
+        console.log(`error searching -->`, err.response)
+      })
+    },
     formLogin() {
       axios({
         method: 'post',

@@ -42,13 +42,21 @@ const create = function(req, res) {
 
 const getAll = function(req, res) {
   let inputData = {}
-  let { name, price_start, tags } = req.query
+  let { name, price, tags } = req.query
 
+  // if (name || price_start || tags) {
+  //   inputData = {
+  //     $or: []
+  //   }
+  // } 
+  // if (name || name !== '') inputData['$or'].push({ name: new RegExp(req.query.name, i)})
+  // if (price_start || price_start !== '') inputData['$or'].push({ price_start: new RegExp(req.query.price_start, i)})
+  // if (tags || tags !== '') inputData['$or'].push({ tags: new RegExp(req.query.tags, i)})
   if (name) inputData.name = name
-  if (price_start) inputData.price_start = price_start
+  if (price) inputData.price = price
   if (tags) inputData.tags = tags
 
-  console.log(inputData)
+  console.log('input data-->',inputData)
 
   Item.find(inputData)
   .then(items => {
