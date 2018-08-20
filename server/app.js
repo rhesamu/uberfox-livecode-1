@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 mongoose.connect('mongodb://localhost:27017/uberfox-livecode-1', { useNewUrlParser: true })
 let db = mongoose.connection
@@ -21,6 +22,7 @@ const app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
